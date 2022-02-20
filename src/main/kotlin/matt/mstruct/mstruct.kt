@@ -1,5 +1,6 @@
 package matt.mstruct
 
+import matt.kjlib.commons.USER_HOME
 import matt.kjlib.file.get
 import org.yaml.snakeyaml.Yaml
 import java.io.File
@@ -11,7 +12,8 @@ class PythonProject(val file: File) {
 	get() {
 	  val theList = mutableListOf<String>()
 
-	  theList.add("/Users/matt/miniconda3/envs/${execJson["env"]}/bin/python")
+
+	  theList.add(USER_HOME["miniconda3/envs/${execJson["env"]}/bin/python"].absolutePath)
 	  theList.add("-u") /*and don't forget it!*/
 	  theList.add(
 		file.resolve("python").resolve((execJson["main"] as String).replace(".", "/") + ".py").absolutePath
