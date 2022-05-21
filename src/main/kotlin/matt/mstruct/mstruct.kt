@@ -1,6 +1,6 @@
 package matt.mstruct
 
-import matt.kjlib.commons.USER_HOME
+import matt.kbuild.USER_HOME
 import matt.kjlib.file.get
 import org.yaml.snakeyaml.Yaml
 import java.io.File
