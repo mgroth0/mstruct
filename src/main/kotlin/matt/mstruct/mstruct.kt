@@ -2,10 +2,13 @@ package matt.mstruct
 
 import matt.klib.commons.USER_HOME
 import matt.klib.commons.get
+import matt.klib.file.MFile
+import matt.klib.file.ext.resolve
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 
-class PythonProject(val file: File) {
+
+class PythonProject(val file: MFile) {
   val name: String
 	get() = file.name
   val execCommand: Array<String>
