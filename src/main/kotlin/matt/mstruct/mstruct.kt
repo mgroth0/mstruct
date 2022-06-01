@@ -5,7 +5,6 @@ import matt.klib.commons.get
 import matt.klib.file.MFile
 import matt.klib.file.ext.resolve
 import org.yaml.snakeyaml.Yaml
-import java.io.File
 
 
 class PythonProject(val file: MFile) {
