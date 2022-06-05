@@ -1,5 +1,7 @@
-import matt.klib.str.upper
 
+
+import matt.klib.str.upper
+modtype = LIB
 dependencies {
   implementation("org.yaml:snakeyaml:1.28")
   if (rootDir.name.upper() == "FLOW") {
