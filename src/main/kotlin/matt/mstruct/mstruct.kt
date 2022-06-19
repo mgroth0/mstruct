@@ -1,9 +1,12 @@
 package matt.mstruct
 
+import matt.klib.commons.RootProject
 import matt.klib.commons.USER_HOME
 import matt.klib.commons.get
+import matt.klib.commons.plus
 import matt.klib.file.MFile
 import matt.klib.file.ext.resolve
+import matt.klib.lang.err
 import org.yaml.snakeyaml.Yaml
 
 
@@ -41,5 +44,24 @@ class PythonProject(val file: MFile) {
 
   fun processBuilder() = ProcessBuilder(execCommand.toList()).apply {
 	environment() += environmentalVars
+  }
+}
+
+
+fun MFile.projectNameRelativeToRoot(root: RootProject): String {
+  val kFold = root.folder + "k"
+  val kJFold = root.folder + "KJ"
+  return when {
+	parentFile in listOf(root.folder, kFold, kJFold) -> name
+	this in kFold                                    -> relativeTo(
+	  kFold
+	).path.replace(MFile.separator, "-")
+
+
+	this in kJFold                                   -> relativeTo(
+	  kJFold
+	).path.replace(MFile.separator, "-")
+
+	else                                             -> err("how to set name of ${this}?")
   }
 }
