@@ -6,6 +6,7 @@ import matt.klib.commons.get
 import matt.klib.commons.plus
 import matt.klib.file.MFile
 import matt.klib.file.ext.resolve
+import matt.klib.file.ext.relativeTo
 import matt.klib.lang.err
 import org.yaml.snakeyaml.Yaml
 
@@ -56,7 +57,6 @@ fun MFile.projectNameRelativeToRoot(root: RootProject): String {
 	this in kFold                                    -> relativeTo(
 	  kFold
 	).path.replace(MFile.separator, "-")
-
 
 	this in kJFold                                   -> relativeTo(
 	  kJFold
