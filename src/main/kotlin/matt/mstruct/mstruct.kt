@@ -63,3 +63,6 @@ fun MFile.projectNameRelativeToRoot(root: RootProjects): String {
 	else                                             -> err("how to set name of ${this}?")
   }
 }
+
+
+const val STANDARD_GROUP_NAME = "matt.flow"
