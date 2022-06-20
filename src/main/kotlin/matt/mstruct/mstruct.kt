@@ -48,19 +48,16 @@ class PythonProject(val file: MFile) {
 
 
 fun MFile.projectNameRelativeToRoot(root: RootProjects): String {
-  val kFold = root.folder + "k"
-  val kJFold = root.folder + "KJ"
   return when {
-	parentFile in listOf(root.folder, kFold, kJFold) -> name
-	this in kFold                                    -> relativeTo(
-	  kFold
-	).path.replace(MFile.separator, "-")
 
-	this in kJFold                                   -> relativeTo(
-	  kJFold
-	).path.replace(MFile.separator, "-")
+	parentFile in root.subRootFolders + root.folder -> name
 
-	else                                             -> err("how to set name of ${this}?")
+	root.subRootFolders.any { this in it }          -> {
+	  val subRoot = root.subRootFolders.first { this in it }
+	  relativeTo(subRoot).path.replace(MFile.separator, "-")
+	}
+
+	else                                            -> err("how to set name of ${this}?")
   }
 }
 
