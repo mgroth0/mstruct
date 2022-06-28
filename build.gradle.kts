@@ -4,7 +4,8 @@ import matt.klib.str.upper
 modtype = LIB
 
 apis(
-  ":k:klib".jvm()
+  ":k:klib".jvm(),
+  ":k:file".jvm()
 )
 
 dependencies {
