@@ -4,7 +4,7 @@ modtype = LIB
 
 implementations(
   libs.snakeyaml,
-  projects.k.kjlib.kjlibGit
+  projects.k.kjlib.git
 )
 
 apis(
