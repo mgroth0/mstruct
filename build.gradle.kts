@@ -1,13 +1,13 @@
 
 
-import matt.klib.str.upper
 modtype = LIB
+
+implementations(
+  libs.snakeyaml,
+  projects.k.kjlib.kjlibGit
+)
 
 apis(
   ":k:klib".jvm(),
-  ":k:file".jvm()
+  ":k:file".jvm(),
 )
-
-dependencies {
-  implementation("org.yaml:snakeyaml:1.28")
-}

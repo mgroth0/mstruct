@@ -1,9 +1,15 @@
 package matt.mstruct
 
+import ModType
+import MultiPlatformMod
 import matt.file.commons.RootProjects
 import matt.file.commons.USER_HOME
 import matt.file.MFile
+import matt.kjlib.git.SimpleGit
 import matt.klib.lang.err
+import matt.klib.str.lower
+import matt.mstruct.SourceSets.commonMain
+import matt.mstruct.SourceSets.main
 import org.yaml.snakeyaml.Yaml
 
 
@@ -61,3 +67,53 @@ fun MFile.projectNameRelativeToRoot(root: RootProjects): String {
 
 
 const val STANDARD_GROUP_NAME = "matt.flow"
+
+
+
+open class SubProject(arg: String, val root: RootProjects) {
+  val nested = '.' in arg
+  val names = arg.split(".")
+  val pathRelativeToRoot = names.joinToString(MFile.separator)
+  val fold = root.folder[pathRelativeToRoot]
+  val modCategory = if (nested) names[0] else null
+  val packPath = if (nested) arg.substringAfter('.') else null
+
+  val groupName = when {
+	nested && names.size == 1 -> "matt"
+	nested                    -> (arrayOf("matt") + names.subList(1, names.size - 1)).joinToString(".") { it.lower() }
+	else                      -> null
+  }
+  val name = if (nested) names.last() else null
+
+  val mainPackage = if (nested) "$groupName.$name" else null
+  val mainPackagePath = mainPackage?.replace('.', MFile.separatorChar)
+
+  companion object {
+	private const val urlPrefix = "https://github.com/mgroth0/"
+  }
+
+  val url = urlPrefix + when {
+	nested -> names.subList(1, names.size).joinToString(MFile.separator)
+	else   -> name
+  }
+
+
+  val buildGradleKts = fold["build.gradle.kts"]
+
+  val git by lazy {
+	SimpleGit(projectDir = fold, debug = true)
+  }
+
+  override fun toString() = "${SubProject::class.simpleName} $pathRelativeToRoot in $root project"
+}
+
+enum class SourceSets {
+  main, test, resources, commonMain, jvmMain, jsMain
+}
+
+val ModType.mainSourceSet get() = if (this is MultiPlatformMod) commonMain.name else main.name
+
+class NewSubMod(arg: String, root: RootProjects, type: ModType): SubProject(arg, root) {
+  val kotlin = fold["src/${type.mainSourceSet}/kotlin"]
+  val java = fold["src/${type.mainSourceSet}/java"]
+}
