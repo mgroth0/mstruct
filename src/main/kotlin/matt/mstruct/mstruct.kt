@@ -66,7 +66,7 @@ fun MFile.projectNameRelativeToRoot(root: RootProjects): String {
 }
 
 
-const val STANDARD_GROUP_NAME = "matt.flow"
+const val STANDARD_GROUP_NAME_PREFIX = "matt.flow"
 
 
 
