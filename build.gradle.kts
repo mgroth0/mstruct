@@ -15,6 +15,7 @@ println("5:${currentTimeMillis()-start}")
 
 implementations(
   libs.snakeyaml,
+  libs.kotlinx.serialization.json,
   dependencies.kotlin("reflect")
 )
 
