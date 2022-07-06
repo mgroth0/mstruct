@@ -1,18 +1,19 @@
 package matt.mstruct
 
-import ABSTRACT
 import ModType
 import MultiPlatformMod
 import kotlinx.serialization.Serializable
+import matt.file.MFile
 import matt.file.commons.RootProjects
 import matt.file.commons.USER_HOME
-import matt.file.MFile
 import matt.kjlib.git.SimpleGit
 import matt.klib.lang.err
 import matt.klib.str.lower
 import matt.mstruct.SourceSets.commonMain
 import matt.mstruct.SourceSets.main
+import matt.stream.recurse.recurse
 import org.yaml.snakeyaml.Yaml
+import kotlin.reflect.KClass
 
 
 class PythonProject(val file: MFile) {
@@ -71,7 +72,6 @@ fun MFile.projectNameRelativeToRoot(root: RootProjects): String {
 const val STANDARD_GROUP_NAME_PREFIX = "matt.flow"
 
 
-
 open class SubProject(arg: String, val root: RootProjects) {
   val nested = '.' in arg
   val names = arg.split(".")
@@ -122,5 +122,7 @@ class NewSubMod(arg: String, root: RootProjects, type: ModType): SubProject(arg,
 
 @Serializable
 class Module(
-  val modType: ModType = ABSTRACT
-)
+  val modType: String = "ABSTRACT"
+) {
+  fun realModType() = ModType::class.recurse { it.sealedSubclasses as Iterable<KClass<ModType>>? }.first { it.simpleName == modType }
+}
