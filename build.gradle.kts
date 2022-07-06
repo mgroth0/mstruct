@@ -1,6 +1,5 @@
 
 
-modtype = LIB
 
 implementations(
   libs.snakeyaml,
