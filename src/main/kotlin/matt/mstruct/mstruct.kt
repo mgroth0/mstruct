@@ -4,6 +4,7 @@ import ModType
 import MultiPlatformMod
 import kotlinx.serialization.Serializable
 import matt.file.MFile
+import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.RootProjects
 import matt.file.commons.USER_HOME
 import matt.kjlib.git.SimpleGit
@@ -101,6 +102,7 @@ open class SubProject(arg: String, val root: RootProjects) {
 
 
   val buildGradleKts = fold["build.gradle.kts"]
+  val buildJson = fold[BUILD_JSON_NAME]
 
   val git by lazy {
 	SimpleGit(projectDir = fold, debug = true)
