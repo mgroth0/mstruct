@@ -1,9 +1,12 @@
 
 
+implementations {
+  kjlibGit
+  stream
+}
 
 implementations(
   libs.snakeyaml,
-  projects.k.kjlib.git
 )
 
 apis(
