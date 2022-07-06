@@ -124,5 +124,8 @@ class NewSubMod(arg: String, root: RootProjects, type: ModType): SubProject(arg,
 class Module(
   val modType: String = "ABSTRACT"
 ) {
-  fun realModType() = ModType::class.recurse { it.sealedSubclasses as Iterable<KClass<ModType>>? }.first { it.simpleName == modType }
+  fun realModType() = ModType::class.recurse {
+	@Suppress("UNCHECKED_CAST")
+	it.sealedSubclasses as Iterable<KClass<ModType>>?
+  }.first { it.simpleName == modType }
 }
