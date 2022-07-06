@@ -11,6 +11,7 @@ import matt.klib.lang.err
 import matt.klib.str.lower
 import matt.mstruct.SourceSets.commonMain
 import matt.mstruct.SourceSets.main
+import matt.stream.recurse.recurse
 import org.yaml.snakeyaml.Yaml
 import kotlin.reflect.KClass
 
