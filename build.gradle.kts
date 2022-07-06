@@ -15,14 +15,15 @@ println("5:${currentTimeMillis()-start}")
 
 implementations(
   libs.snakeyaml,
+  dependencies.kotlin("reflect")
 )
 
 println("6:${currentTimeMillis()-start}")
 
-apis(
-  ":k:klib".jvm(),
-  ":k:file".jvm(),
-)
+apis {
+  klib
+  file
+}
 
 println("7:${currentTimeMillis()-start}")
 
