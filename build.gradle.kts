@@ -11,3 +11,7 @@ apis(
   ":k:klib".jvm(),
   ":k:file".jvm(),
 )
+
+plugins {
+  kotlin("plugin.serialization")
+}

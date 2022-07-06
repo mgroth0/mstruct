@@ -1,7 +1,9 @@
 package matt.mstruct
 
+import ABSTRACT
 import ModType
 import MultiPlatformMod
+import kotlinx.serialization.Serializable
 import matt.file.commons.RootProjects
 import matt.file.commons.USER_HOME
 import matt.file.MFile
@@ -117,3 +119,8 @@ class NewSubMod(arg: String, root: RootProjects, type: ModType): SubProject(arg,
   val kotlin = fold["src/${type.mainSourceSet}/kotlin"]
   val java = fold["src/${type.mainSourceSet}/java"]
 }
+
+@Serializable
+class Module(
+  val modType: ModType = ABSTRACT
+)
