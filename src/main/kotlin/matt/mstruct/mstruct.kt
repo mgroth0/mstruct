@@ -5,7 +5,9 @@ import MultiPlatformMod
 import kotlinx.serialization.Serializable
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
+import matt.file.commons.REL_LIBS_VERSIONS_TOML
 import matt.file.commons.RootProjects
+import matt.file.commons.RootProjects.flow
 import matt.file.commons.USER_HOME
 import matt.kjlib.git.SimpleGit
 import matt.klib.lang.err
@@ -13,6 +15,7 @@ import matt.klib.str.lower
 import matt.mstruct.SourceSets.commonMain
 import matt.mstruct.SourceSets.main
 import matt.stream.recurse.recurse
+import org.tomlj.Toml
 import org.yaml.snakeyaml.Yaml
 import kotlin.reflect.KClass
 
@@ -148,3 +151,11 @@ class BuildJsonModule(
 	it.sealedSubclasses as Iterable<KClass<ModType>>?
   }.first { it.simpleName == modType }
 }
+
+private val toml by lazy { Toml.parse(flow.folder.resolve(REL_LIBS_VERSIONS_TOML).toPath()) }
+private val versionsTable by lazy { toml.getTable("versions")!! }
+
+/*obviously this can be improved if needed
+I also do this in buildSrc/build.gradle.kts
+without calling this. It can't be helped easily.*/
+fun tomlVersion(name: String) = versionsTable.getString(name)!!
