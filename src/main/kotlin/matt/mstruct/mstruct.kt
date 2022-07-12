@@ -127,12 +127,12 @@ sealed interface BuildJsonDependency {
   val cfg: String
 }
 @Serializable
-
 class BuildJsonProjectDependency(
   override val cfg: String,
   val path: String
 ): BuildJsonDependency
 
+@Serializable
 class BuildJsonLibDependency(
   override val cfg: String,
   val key: String
