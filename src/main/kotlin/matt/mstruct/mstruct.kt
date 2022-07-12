@@ -159,3 +159,4 @@ private val versionsTable by lazy { toml.getTable("versions")!! }
 I also do this in buildSrc/build.gradle.kts
 without calling this. It can't be helped easily.*/
 fun tomlVersion(name: String) = versionsTable.getString(name)!!
+
