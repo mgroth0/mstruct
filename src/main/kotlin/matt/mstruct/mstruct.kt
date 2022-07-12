@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.REL_LIBS_VERSIONS_TOML
+import matt.file.commons.REL_ROOT_FILES
 import matt.file.commons.RootProjects
 import matt.file.commons.RootProjects.flow
 import matt.file.commons.USER_HOME
@@ -160,3 +161,5 @@ I also do this in buildSrc/build.gradle.kts
 without calling this. It can't be helped easily.*/
 fun tomlVersion(name: String) = versionsTable.getString(name)!!
 
+
+val ROOT_FILES_EXTRACT_SCRIPT_REL = REL_ROOT_FILES + "extract.sh"
