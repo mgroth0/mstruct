@@ -123,9 +123,26 @@ class NewSubMod(arg: String, root: RootProjects, type: ModType): SubProject(arg,
 }
 
 @Serializable
-class Module(
+sealed interface BuildJsonDependency {
+  val cfg: String
+}
+@Serializable
+
+class BuildJsonProjectDependency(
+  override val cfg: String,
+  val path: String
+): BuildJsonDependency
+
+class BuildJsonLibDependency(
+  override val cfg: String,
+  val key: String
+): BuildJsonDependency
+
+@Serializable
+class BuildJsonModule(
   val modType: String = "ABSTRACT"
 ) {
+  val dependencies = listOf<BuildJsonDependency>()
   fun realModType() = ModType::class.recurse {
 	@Suppress("UNCHECKED_CAST")
 	it.sealedSubclasses as Iterable<KClass<ModType>>?
