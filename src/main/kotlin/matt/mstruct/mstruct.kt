@@ -5,6 +5,7 @@ import MultiPlatformMod
 import kotlinx.serialization.Serializable
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
+import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_LIBS_VERSIONS_TOML
 import matt.file.commons.REL_ROOT_FILES
 import matt.file.commons.RootProjects
@@ -164,3 +165,4 @@ fun tomlVersion(name: String) = versionsTable.getString(name)!!
 val ROOT_FILES_EXTRACT_SCRIPT_REL = REL_ROOT_FILES + "extract.sh"
 
 const val KBUILD_PROJ_PATH = ":k:kbuild"
+val KBUILD_JAR = REGISTERED_FOLDER + "kbuild.jar"
