@@ -10,10 +10,16 @@ import matt.file.commons.REL_LIBS_VERSIONS_TOML
 import matt.file.commons.REL_ROOT_FILES
 import matt.file.commons.RootProjects
 import matt.file.commons.RootProjects.flow
+import matt.file.commons.RootProjects.kcomp
 import matt.file.commons.USER_HOME
+import matt.file.mFile
 import matt.kjlib.git.SimpleGit
+import matt.klib.commons.thisMachine
+import matt.klib.lang.NOT_IMPLEMENTED
 import matt.klib.lang.err
 import matt.klib.str.lower
+import matt.klib.sys.Mac
+import matt.klib.sys.OPEN_MIND
 import matt.mstruct.SourceSets.commonMain
 import matt.mstruct.SourceSets.main
 import matt.stream.recurse.recurse
@@ -131,6 +137,7 @@ class NewSubMod(arg: String, root: RootProjects, type: ModType): SubProject(arg,
 sealed interface BuildJsonDependency {
   val cfg: String
 }
+
 @Serializable
 class BuildJsonProjectDependency(
   override val cfg: String,
@@ -154,7 +161,15 @@ class BuildJsonModule(
   }.first { it.simpleName == modType }
 }
 
-private val toml by lazy { Toml.parse(flow.folder.resolve(REL_LIBS_VERSIONS_TOML).toPath()) }
+private val toml by lazy {
+  Toml.parse(
+	(when (thisMachine) {
+	  is Mac    -> flow.folder.resolve(REL_LIBS_VERSIONS_TOML)
+	  OPEN_MIND -> mFile(OPEN_MIND.homeDir) + kcomp.name + REL_LIBS_VERSIONS_TOML
+	  else      -> NOT_IMPLEMENTED
+	}).toPath()
+  )
+}
 private val versionsTable by lazy { toml.getTable("versions")!! }
 
 /*obviously this can be improved if needed
