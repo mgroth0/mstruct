@@ -162,3 +162,5 @@ without calling this. It can't be helped easily.*/
 fun tomlVersion(name: String) = versionsTable.getString(name)!!
 
 val ROOT_FILES_EXTRACT_SCRIPT_REL = REL_ROOT_FILES + "extract.sh"
+
+const val KBUILD_PROJ_PATH = ":k:kbuild"
