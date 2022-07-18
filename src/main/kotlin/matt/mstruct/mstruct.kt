@@ -5,6 +5,9 @@ import MultiPlatformMod
 import kotlinx.serialization.Serializable
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
+import matt.file.commons.COMMON_PROJ_FOLDER
+import matt.file.commons.LIBS_VERSIONS_TOML
+import matt.file.commons.LIBS_VERSIONS_TOML_ONLINE
 import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_LIBS_VERSIONS_TOML
 import matt.file.commons.REL_ROOT_FILES
@@ -163,17 +166,28 @@ class BuildJsonModule(
   }.first { it.simpleName == modType }
 }
 
+//private val ONLINE_LIBS_VERSIONS_TEXTTEXT by lazy { LIBS_VERSIONS_TOML_ONLINE.readText() }
+//private val COMMON_LIBS_VERSIONS_FILE by lazy {  }
+
 private val toml by lazy {
-  Toml.parse(
-	(when (thisMachine) {
-	  is Mac    -> flow.folder.resolve(REL_LIBS_VERSIONS_TOML).apply {
-		warn("reliance on flow project has to go")
-	  }
-	  OPEN_MIND -> mFile(OPEN_MIND.homeDir) + kcomp.name + REL_LIBS_VERSIONS_TOML
-	  WINDOWS_11_PAR_WORK -> kcomp.folder.resolve(REL_LIBS_VERSIONS_TOML)
-	  else      -> NOT_IMPLEMENTED
-	}).toPath()
-  )
+  COMMON_PROJ_FOLDER[LIBS_VERSIONS_TOML]
+	.takeIf { it.exists() }
+	?.let { Toml.parse(it.toPath()) }
+	?: Toml.parse(LIBS_VERSIONS_TOML_ONLINE.openStream())
+  //  Toml.parse(
+  //
+  //	COMMON_LIBS_VERSIONS_FILE ?: ONLINE_LIBS_VERSIONS_TEXT.byteInputStream()
+  //	/*
+  //		(when (thisMachine) {
+  //		  is Mac              -> flow.folder.resolve(REL_LIBS_VERSIONS_TOML).apply {
+  //			warn("reliance on flow project has to go")
+  //		  }
+  //
+  //		  OPEN_MIND           -> mFile(OPEN_MIND.homeDir) + kcomp.name + REL_LIBS_VERSIONS_TOML
+  //		  WINDOWS_11_PAR_WORK -> kcomp.folder.resolve(REL_LIBS_VERSIONS_TOML)
+  //		  else                -> NOT_IMPLEMENTED
+  //		}).toPath()*/
+  //  )
 }
 private val versionsTable by lazy { toml.getTable("versions")!! }
 
