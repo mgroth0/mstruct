@@ -9,23 +9,14 @@ import matt.file.commons.COMMON_PROJ_FOLDER
 import matt.file.commons.LIBS_VERSIONS_ONLINE_URL
 import matt.file.commons.LIBS_VERSIONS_TOML
 import matt.file.commons.REGISTERED_FOLDER
-import matt.file.commons.REL_LIBS_VERSIONS_TOML
 import matt.file.commons.REL_ROOT_FILES
 import matt.file.commons.RootProjects
-import matt.file.commons.RootProjects.flow
-import matt.file.commons.RootProjects.kcomp
 import matt.file.commons.USER_HOME
 import matt.file.mFile
 import matt.kjlib.git.SimpleGit
 import matt.klib.commons.GITHUB_USERNAME
-import matt.klib.commons.thisMachine
-import matt.klib.lang.NOT_IMPLEMENTED
 import matt.klib.lang.err
-import matt.klib.log.warn
 import matt.klib.str.lower
-import matt.klib.sys.Mac
-import matt.klib.sys.OPEN_MIND
-import matt.klib.sys.WINDOWS_11_PAR_WORK
 import matt.mstruct.SourceSets.commonMain
 import matt.mstruct.SourceSets.main
 import matt.stream.recurse.recurse
@@ -123,7 +114,7 @@ open class SubProject(arg: String, val root: RootProjects) {
   val buildJson = fold[BUILD_JSON_NAME]
 
   val git by lazy {
-	SimpleGit(projectDir = fold, debug = true)
+	SimpleGit(projectDir = fold, verbosity = STREAM)
   }
 
   override fun toString() = "${SubProject::class.simpleName} $pathRelativeToRoot in $root project"
@@ -207,5 +198,11 @@ const val KBUILD_PROJ_PATH = ":k:kbuild"
 val KBUILD_JAR = REGISTERED_FOLDER + "kbuild.jar"
 
 val JAVA_HOME by lazy {
-  mFile(Properties().apply{load((USER_HOME + ".gradle" + "gradle.properties").reader())}["org.gradle.java.home"].toString())
+  mFile(
+	Properties().apply {
+	  load(
+		(USER_HOME + ".gradle" + "gradle.properties").reader()
+	  )
+	}["org.gradle.java.home"].toString()
+  )
 }
