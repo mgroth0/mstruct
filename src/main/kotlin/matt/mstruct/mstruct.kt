@@ -20,6 +20,7 @@ import matt.klib.lang.err
 import matt.klib.str.lower
 import matt.klib.sys.Mac
 import matt.klib.sys.OPEN_MIND
+import matt.klib.sys.WINDOWS_11_PAR_WORK
 import matt.mstruct.SourceSets.commonMain
 import matt.mstruct.SourceSets.main
 import matt.stream.recurse.recurse
@@ -166,6 +167,7 @@ private val toml by lazy {
 	(when (thisMachine) {
 	  is Mac    -> flow.folder.resolve(REL_LIBS_VERSIONS_TOML)
 	  OPEN_MIND -> mFile(OPEN_MIND.homeDir) + kcomp.name + REL_LIBS_VERSIONS_TOML
+	  WINDOWS_11_PAR_WORK -> REL_LIBS_VERSIONS_TOML
 	  else      -> NOT_IMPLEMENTED
 	}).toPath()
   )
