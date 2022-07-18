@@ -17,6 +17,7 @@ import matt.file.commons.RootProjects.kcomp
 import matt.file.commons.USER_HOME
 import matt.file.mFile
 import matt.kjlib.git.SimpleGit
+import matt.klib.commons.GITHUB_USERNAME
 import matt.klib.commons.thisMachine
 import matt.klib.lang.NOT_IMPLEMENTED
 import matt.klib.lang.err
@@ -108,7 +109,7 @@ open class SubProject(arg: String, val root: RootProjects) {
   val mainPackagePath = mainPackage?.replace('.', MFile.separatorChar)
 
   companion object {
-	private const val urlPrefix = "https://github.com/mgroth0/"
+	private const val urlPrefix = "https://github.com/${GITHUB_USERNAME}/"
   }
 
   val url = urlPrefix + when {
