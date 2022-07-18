@@ -167,7 +167,7 @@ private val toml by lazy {
 	(when (thisMachine) {
 	  is Mac    -> flow.folder.resolve(REL_LIBS_VERSIONS_TOML)
 	  OPEN_MIND -> mFile(OPEN_MIND.homeDir) + kcomp.name + REL_LIBS_VERSIONS_TOML
-	  WINDOWS_11_PAR_WORK -> REL_LIBS_VERSIONS_TOML
+	  WINDOWS_11_PAR_WORK -> kcomp.folder.resolve(REL_LIBS_VERSIONS_TOML)
 	  else      -> NOT_IMPLEMENTED
 	}).toPath()
   )
