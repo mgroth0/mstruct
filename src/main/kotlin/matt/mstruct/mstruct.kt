@@ -190,7 +190,7 @@ private val toml by lazy {
   //  )
 }
 private val versionsTable by lazy { toml.getTable("versions")!! }
-private val librariesTable by lazy { toml.getTable("libraries")!! }
+val librariesTable by lazy { toml.getTable("libraries")!! }
 
 /*obviously this can be improved if needed
 I also do this in buildSrc/build.gradle.kts
