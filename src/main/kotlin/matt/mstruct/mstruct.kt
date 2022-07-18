@@ -17,6 +17,7 @@ import matt.kjlib.git.SimpleGit
 import matt.klib.commons.thisMachine
 import matt.klib.lang.NOT_IMPLEMENTED
 import matt.klib.lang.err
+import matt.klib.log.warn
 import matt.klib.str.lower
 import matt.klib.sys.Mac
 import matt.klib.sys.OPEN_MIND
@@ -165,7 +166,9 @@ class BuildJsonModule(
 private val toml by lazy {
   Toml.parse(
 	(when (thisMachine) {
-	  is Mac    -> flow.folder.resolve(REL_LIBS_VERSIONS_TOML)
+	  is Mac    -> flow.folder.resolve(REL_LIBS_VERSIONS_TOML).apply {
+		warn("reliance on flow project has to go")
+	  }
 	  OPEN_MIND -> mFile(OPEN_MIND.homeDir) + kcomp.name + REL_LIBS_VERSIONS_TOML
 	  WINDOWS_11_PAR_WORK -> kcomp.folder.resolve(REL_LIBS_VERSIONS_TOML)
 	  else      -> NOT_IMPLEMENTED
