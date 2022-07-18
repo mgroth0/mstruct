@@ -31,6 +31,7 @@ import matt.mstruct.SourceSets.main
 import matt.stream.recurse.recurse
 import org.tomlj.Toml
 import org.yaml.snakeyaml.Yaml
+import java.util.Properties
 import kotlin.reflect.KClass
 
 
@@ -204,3 +205,7 @@ val ROOT_FILES_EXTRACT_SCRIPT_REL = REL_ROOT_FILES + "extract.sh"
 
 const val KBUILD_PROJ_PATH = ":k:kbuild"
 val KBUILD_JAR = REGISTERED_FOLDER + "kbuild.jar"
+
+val JAVA_HOME by lazy {
+  mFile(Properties().apply{load((USER_HOME + ".gradle" + "gradle.properties").reader())}["org.gradle.java.home"].toString())
+}
