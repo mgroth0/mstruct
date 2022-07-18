@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.COMMON_PROJ_FOLDER
+import matt.file.commons.LIBS_VERSIONS_ONLINE_URL
 import matt.file.commons.LIBS_VERSIONS_TOML
-import matt.file.commons.LIBS_VERSIONS_TOML_ONLINE
 import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_LIBS_VERSIONS_TOML
 import matt.file.commons.REL_ROOT_FILES
@@ -175,7 +175,7 @@ private val toml by lazy {
   COMMON_LIBS_VERSIONS_FILE
 	.takeIf { it.exists() }
 	?.let { Toml.parse(it.toPath()) }
-	?: Toml.parse(LIBS_VERSIONS_TOML_ONLINE.openStream())
+	?: Toml.parse(LIBS_VERSIONS_ONLINE_URL.openStream())
   //  Toml.parse(
   //
   //	COMMON_LIBS_VERSIONS_FILE ?: ONLINE_LIBS_VERSIONS_TEXT.byteInputStream()
