@@ -169,8 +169,10 @@ class BuildJsonModule(
 //private val ONLINE_LIBS_VERSIONS_TEXTTEXT by lazy { LIBS_VERSIONS_TOML_ONLINE.readText() }
 //private val COMMON_LIBS_VERSIONS_FILE by lazy {  }
 
+val COMMON_LIBS_VERSIONS_FILE = COMMON_PROJ_FOLDER + LIBS_VERSIONS_TOML
+
 private val toml by lazy {
-  COMMON_PROJ_FOLDER[LIBS_VERSIONS_TOML]
+  COMMON_LIBS_VERSIONS_FILE
 	.takeIf { it.exists() }
 	?.let { Toml.parse(it.toPath()) }
 	?: Toml.parse(LIBS_VERSIONS_TOML_ONLINE.openStream())
