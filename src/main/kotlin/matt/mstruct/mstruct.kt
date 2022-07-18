@@ -14,6 +14,7 @@ import matt.file.commons.RootProjects
 import matt.file.commons.USER_HOME
 import matt.file.mFile
 import matt.kjlib.git.SimpleGit
+import matt.kjlib.shell.ShellVerbosity.Companion.STREAM
 import matt.klib.commons.GITHUB_USERNAME
 import matt.klib.lang.err
 import matt.klib.str.lower
