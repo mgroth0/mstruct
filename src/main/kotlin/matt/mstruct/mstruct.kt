@@ -5,7 +5,6 @@ import MultiPlatformMod
 import kotlinx.serialization.Serializable
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
-import matt.file.commons.PAR_FOLDER
 import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_LIBS_VERSIONS_TOML
 import matt.file.commons.REL_ROOT_FILES
