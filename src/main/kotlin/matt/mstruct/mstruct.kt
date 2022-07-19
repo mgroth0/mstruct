@@ -154,9 +154,9 @@ class BuildJsonLibDependency(
 
 @Serializable
 class BuildJsonModule(
-  val modType: String = "ABSTRACT"
+  private val modType: String = "ABSTRACT",
+  val dependencies: List<BuildJsonDependency> = listOf()
 ) {
-  val dependencies = listOf<BuildJsonDependency>()
   fun realModType() = ModType::class.recurse {
 	@Suppress("UNCHECKED_CAST")
 	it.sealedSubclasses as Iterable<KClass<ModType>>?
@@ -165,7 +165,6 @@ class BuildJsonModule(
 
 //private val ONLINE_LIBS_VERSIONS_TEXTTEXT by lazy { LIBS_VERSIONS_TOML_ONLINE.readText() }
 //private val COMMON_LIBS_VERSIONS_FILE by lazy {  }
-
 
 
 private val toml by lazy {
@@ -190,9 +189,11 @@ private val toml by lazy {
 }
 private val versionsTable by lazy { toml.getTable("versions")!! }
 val librariesTable by lazy { toml.getTable("libraries")!! }
-val librariesTableAsMaps by lazy { Json.decodeFromString<Map<String, Map<String, String>>>(
-  librariesTable.toJson()
-) }
+val librariesTableAsMaps by lazy {
+  Json.decodeFromString<Map<String, Map<String, String>>>(
+	librariesTable.toJson()
+  )
+}
 
 /*obviously this can be improved if needed
 I also do this in buildSrc/build.gradle.kts
