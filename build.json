@@ -1,1 +1,45 @@
-{"modType":"LIB"}
+{
+    "modType": "LIB",
+    "dependencies": [
+        {
+            "type": "matt.mstruct.BuildJsonProjectDependency",
+            "cfg": "implementation",
+            "path": ":k:kjlib:git"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonProjectDependency",
+            "cfg": "implementation",
+            "path": ":k:stream"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonLibDependency",
+            "cfg": "implementation",
+            "key": "toml"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonLibDependency",
+            "cfg": "implementation",
+            "key": "snakeyaml"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonLibDependency",
+            "cfg": "implementation",
+            "key": "kotlinx-serialization-json"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonLibDependency",
+            "cfg": "implementation",
+            "key": "kt-reflect"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonProjectDependency",
+            "cfg": "api",
+            "path": ":k:klib"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonProjectDependency",
+            "cfg": "api",
+            "path": ":k:file"
+        }
+    ]
+}
