@@ -5,12 +5,11 @@ import MultiPlatformMod
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.COMMON_LIBS_VERSIONS_FILE
-import matt.file.commons.COMMON_PROJ_FOLDER
 import matt.file.commons.LIBS_VERSIONS_ONLINE_URL
-import matt.file.commons.LIBS_VERSIONS_TOML
 import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_ROOT_FILES
 import matt.file.commons.RootProjects
@@ -189,8 +188,8 @@ private val toml by lazy {
 }
 private val versionsTable by lazy { toml.getTable("versions")!! }
 val librariesTable by lazy { toml.getTable("libraries")!! }
-val librariesTableAsMaps by lazy {
-  Json.decodeFromString<Map<String, Map<String, String>>>(
+val librariesTableAsJson by lazy {
+  Json.decodeFromString<JsonObject>(
 	librariesTable.toJson()
   )
 }
