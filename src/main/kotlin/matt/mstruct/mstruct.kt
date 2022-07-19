@@ -163,7 +163,7 @@ class BuildJsonModule(
 //private val ONLINE_LIBS_VERSIONS_TEXTTEXT by lazy { LIBS_VERSIONS_TOML_ONLINE.readText() }
 //private val COMMON_LIBS_VERSIONS_FILE by lazy {  }
 
-val COMMON_LIBS_VERSIONS_FILE = COMMON_PROJ_FOLDER + LIBS_VERSIONS_TOML
+
 
 private val toml by lazy {
   COMMON_LIBS_VERSIONS_FILE
