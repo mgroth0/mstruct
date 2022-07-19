@@ -136,21 +136,21 @@ class NewSubMod(arg: String, root: RootProjects, type: ModType): SubProject(arg,
 }
 
 @Serializable
-sealed interface BuildJsonDependency {
-  val cfg: String
+sealed class BuildJsonDependency {
+  abstract val cfg: String
 }
 
 @Serializable
 class BuildJsonProjectDependency(
   override val cfg: String,
   val path: String
-): BuildJsonDependency
+): BuildJsonDependency()
 
 @Serializable
 class BuildJsonLibDependency(
   override val cfg: String,
   val key: String
-): BuildJsonDependency
+): BuildJsonDependency()
 
 @Serializable
 class BuildJsonModule(
