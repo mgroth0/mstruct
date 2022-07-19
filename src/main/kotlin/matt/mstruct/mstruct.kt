@@ -3,6 +3,8 @@ package matt.mstruct
 import ModType
 import MultiPlatformMod
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.COMMON_LIBS_VERSIONS_FILE
@@ -188,6 +190,9 @@ private val toml by lazy {
 }
 private val versionsTable by lazy { toml.getTable("versions")!! }
 val librariesTable by lazy { toml.getTable("libraries")!! }
+val librariesTableAsMaps by lazy { Json.decodeFromString<Map<String, Map<String, String>>>(
+  librariesTable.toJson()
+) }
 
 /*obviously this can be improved if needed
 I also do this in buildSrc/build.gradle.kts
