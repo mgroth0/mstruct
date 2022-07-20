@@ -32,6 +32,16 @@
             "key": "kt-reflect"
         },
         {
+            "type": "matt.mstruct.BuildJsonLibDependency",
+            "cfg": "implementation",
+            "key": "ktlint-core"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonLibDependency",
+            "cfg": "implementation",
+            "key": "ktlint-std"
+        },
+        {
             "type": "matt.mstruct.BuildJsonProjectDependency",
             "cfg": "api",
             "path": ":k:klib"

@@ -153,6 +153,12 @@ class BuildJsonLibDependency(
   val key: String
 ): BuildJsonDependency()
 
+@Serializable
+class BuildJsonLibBundleDependency(
+  override val cfg: String,
+  val key: String
+): BuildJsonDependency()
+
 
 @Suppress("UNCHECKED_CAST") val allModTypes by lazy {
   ModType::class.recurse(includeSelf = false) {
