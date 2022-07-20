@@ -38,7 +38,7 @@
         },
         {
             "type": "matt.mstruct.BuildJsonLibDependency",
-            "cfg": "implementation",
+            "cfg": "api",
             "key": "ktlint-std"
         },
         {

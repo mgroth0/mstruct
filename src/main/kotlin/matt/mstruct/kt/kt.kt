@@ -24,6 +24,7 @@ private val STD_RULE_SETS by lazy { listOf(STD_RULE_SET) }
 fun String.formatKotlinCode(
   removeRules: List<Rule> = listOf()
 ) = KtLint.format(
+//  EnumEntryNameCaseRule
   ExperimentalParams(
 	text = this,
 	cb = { e: LintError, corrected: Boolean ->
