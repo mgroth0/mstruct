@@ -6,6 +6,7 @@ import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider
 import matt.file.UnnamedPackageIsOk
 import matt.klib.lang.err
+import matt.klib.log.warn
 
 fun unnamedKt(s: String) = """
   @file:${UnnamedPackageIsOk::class.simpleName}
