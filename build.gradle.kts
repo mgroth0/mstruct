@@ -21,7 +21,7 @@ generateKt(projectDirM + "src" + "main" + "kotlin" + "gen".kt) {
 		  enum class KSubProject(val path: String) {
 		     ${
 	  mods.joinToString(",") {
-		it.accessorName + "(\"$path\")"
+		it.accessorName + "(\"${it.path}\")"
 	  }
 	}
 		  }
