@@ -26,7 +26,7 @@ generateKt(projectDirM + "src" + "main" + "kotlin" + "gen".kt) {
 	}
 		  }
 		"""
-  ).formatKotlinCode(removeRules = listOf(com.pinterest.ktlint.ruleset.standard.EnumEntryNameCaseRule().id))
+  )/*.formatKotlinCode(removeRules = listOf(com.pinterest.ktlint.ruleset.standard.EnumEntryNameCaseRule().id))*/
 
 
 }
