@@ -13,10 +13,12 @@ import matt.file.commons.LIBS_VERSIONS_ONLINE_URL
 import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_ROOT_FILES
 import matt.file.commons.IdeProject
+import matt.file.commons.IdeProject.kcomp
 import matt.file.commons.USER_HOME
 import matt.file.mFile
 import matt.kjlib.git.SimpleGit
 import matt.kjlib.shell.ShellVerbosity.Companion.STREAM
+import matt.kjlib.shell.shell
 import matt.klib.commons.GITHUB_USERNAME
 import matt.klib.lang.err
 import matt.klib.str.lower
@@ -213,3 +215,13 @@ val JAVA_HOME by lazy {
 	}["org.gradle.java.home"].toString()
   )
 }
+
+fun IdeProject.gradle(task: String) = shell(
+  (folder + "gradlew").abspath,
+  task,
+  env = mapOf(
+	"JAVA_HOME" to JAVA_HOME.abspath
+  ),
+  verbosity = STREAM,
+  workingDir = folder
+)
