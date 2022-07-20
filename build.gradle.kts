@@ -1,7 +1,6 @@
 import matt.file.kt
 import matt.kbuild.gbuild.projectDirM
 import matt.klib.lang.cap
-import matt.mstruct.kt.formatKotlinCode
 
 generateKt(projectDirM + "src" + "main" + "kotlin" + "gen".kt) {
 
