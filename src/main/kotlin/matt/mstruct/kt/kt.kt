@@ -21,18 +21,15 @@ private val ktFormatRules by lazy {
   )
 }
 
-fun String.formatKotlinCode() {
-  KtLint.format(
-	ExperimentalParams(
-	  text = this,
-	  cb = { e: LintError, corrected: Boolean ->
-		println("LINT ERROR: $e")
-		println("corrected=${corrected}")
-		err("there was a lint error")
-	  },
-	  ruleSets = ktFormatRules
-	)
+fun String.formatKotlinCode() = KtLint.format(
+  ExperimentalParams(
+	text = this,
+	cb = { e: LintError, corrected: Boolean ->
+	  println("LINT ERROR: $e")
+	  println("corrected=${corrected}")
+	  err("there was a lint error")
+	},
+	ruleSets = ktFormatRules
   )
+)
 
-
-}
