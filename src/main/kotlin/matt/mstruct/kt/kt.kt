@@ -6,7 +6,6 @@ import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.core.RuleSet
 import com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider
 import matt.file.UnnamedPackageIsOk
-import matt.klib.log.warn
 
 fun unnamedKt(s: String) = """
   @file:${UnnamedPackageIsOk::class.simpleName}
@@ -25,7 +24,7 @@ fun String.formatKotlinCode(
   //  EnumEntryNameCaseRule
   ExperimentalParams(
 	text = this,
-	cb = { e: LintError, corrected: Boolean ->
+	cb = { _: LintError, _: Boolean ->
 	  /*doing nothing here because these seem to be non actionable*/
 	  /*warn("LINT ERROR: $e")
 	  warn("corrected=${corrected}")*/
