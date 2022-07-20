@@ -25,9 +25,8 @@ fun String.formatKotlinCode() = KtLint.format(
   ExperimentalParams(
 	text = this,
 	cb = { e: LintError, corrected: Boolean ->
-	  println("LINT ERROR: $e")
-	  println("corrected=${corrected}")
-	  err("there was a lint error")
+	  warn("LINT ERROR: $e")
+	  warn("corrected=${corrected}")
 	},
 	ruleSets = ktFormatRules
   )
