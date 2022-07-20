@@ -202,9 +202,15 @@ private val toml by lazy {
 }
 private val versionsTable by lazy { toml.getTable("versions")!! }
 val librariesTable by lazy { toml.getTable("libraries")!! }
+val bundlesTable by lazy { toml.getTable("bundles")!! }
 val librariesTableAsJson by lazy {
   Json.decodeFromString<JsonObject>(
 	librariesTable.toJson()
+  )
+}
+val bundlesTableAsJson by lazy {
+  Json.decodeFromString<JsonObject>(
+	bundlesTable.toJson()
   )
 }
 
