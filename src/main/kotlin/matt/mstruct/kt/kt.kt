@@ -3,9 +3,7 @@ package matt.mstruct.kt
 import com.pinterest.ktlint.core.KtLint
 import com.pinterest.ktlint.core.KtLint.ExperimentalParams
 import com.pinterest.ktlint.core.LintError
-import com.pinterest.ktlint.core.Rule
 import com.pinterest.ktlint.core.RuleSet
-import com.pinterest.ktlint.ruleset.standard.EnumEntryNameCaseRule
 import com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider
 import matt.file.UnnamedPackageIsOk
 import matt.klib.log.warn
@@ -22,7 +20,7 @@ private val STD_RULE_SET by lazy { StandardRuleSetProvider().get() }
 private val STD_RULE_SETS by lazy { listOf(STD_RULE_SET) }
 
 fun String.formatKotlinCode(
-  removeRules: List<Rule> = listOf()
+  removeRules: List<String> = listOf()
 ) = KtLint.format(
 //  EnumEntryNameCaseRule
   ExperimentalParams(
@@ -35,7 +33,7 @@ fun String.formatKotlinCode(
 	ruleSets = listOf(
 	  RuleSet(
 		"my-rule-set",
-		*STD_RULE_SET.rules.filter { it !in removeRules }.toTypedArray()
+		*STD_RULE_SET.rules.filter { it.id !in removeRules }.toTypedArray()
 	  )
 	)
   )
