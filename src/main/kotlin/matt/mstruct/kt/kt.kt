@@ -34,7 +34,7 @@ fun String.formatKotlinCode(
 	},
 	ruleSets = listOf(
 	  RuleSet(
-		"MY-RULE-SET",
+		"my-rule-set",
 		*STD_RULE_SET.rules.filter { it !in removeRules }.toTypedArray()
 	  )
 	)
