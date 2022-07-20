@@ -1,5 +1,6 @@
 package matt.mstruct
 
+import ABSTRACT
 import ModType
 import MultiPlatformMod
 import kotlinx.serialization.Serializable
@@ -9,11 +10,10 @@ import kotlinx.serialization.json.JsonObject
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.COMMON_LIBS_VERSIONS_FILE
+import matt.file.commons.IdeProject
 import matt.file.commons.LIBS_VERSIONS_ONLINE_URL
 import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_ROOT_FILES
-import matt.file.commons.IdeProject
-import matt.file.commons.IdeProject.kcomp
 import matt.file.commons.USER_HOME
 import matt.file.mFile
 import matt.kjlib.git.SimpleGit
@@ -153,15 +153,21 @@ class BuildJsonLibDependency(
   val key: String
 ): BuildJsonDependency()
 
+
+@Suppress("UNCHECKED_CAST") val allModTypes by lazy {
+  ModType::class.recurse(includeSelf = false) {
+	it.sealedSubclasses as Iterable<KClass<ModType>>
+  }.mapNotNull { it.objectInstance }.toList()
+}
+
 @Serializable
-class BuildJsonModule(
-  private val modType: String = "ABSTRACT",
+data class BuildJsonModule(
+  private val modType: String = ABSTRACT::class.simpleName!!,
   val dependencies: List<BuildJsonDependency> = listOf()
 ) {
-  fun realModType() = ModType::class.recurse {
-	@Suppress("UNCHECKED_CAST")
-	it.sealedSubclasses as Iterable<KClass<ModType>>?
-  }.first { it.simpleName == modType }
+  fun realModType() = allModTypes.first {
+	it::class.simpleName == modType
+  }
 }
 
 //private val ONLINE_LIBS_VERSIONS_TEXTTEXT by lazy { LIBS_VERSIONS_TOML_ONLINE.readText() }
