@@ -12,7 +12,7 @@ import matt.file.commons.COMMON_LIBS_VERSIONS_FILE
 import matt.file.commons.LIBS_VERSIONS_ONLINE_URL
 import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_ROOT_FILES
-import matt.file.commons.RootProjects
+import matt.file.commons.IdeProject
 import matt.file.commons.USER_HOME
 import matt.file.mFile
 import matt.kjlib.git.SimpleGit
@@ -67,7 +67,7 @@ class PythonProject(val file: MFile) {
 }
 
 
-fun MFile.projectNameRelativeToRoot(root: RootProjects): String {
+fun MFile.projectNameRelativeToRoot(root: IdeProject): String {
   return when {
 
 	parentFile in root.subRootFolders + root.folder -> name
@@ -85,7 +85,7 @@ fun MFile.projectNameRelativeToRoot(root: RootProjects): String {
 const val STANDARD_GROUP_NAME_PREFIX = "matt.flow"
 
 
-open class SubProject(arg: String, val root: RootProjects) {
+open class SubProject(arg: String, val root: IdeProject) {
   val nested = '.' in arg
   val names = arg.split(".")
   val pathRelativeToRoot = names.joinToString(MFile.separator)
@@ -129,7 +129,7 @@ enum class SourceSets {
 
 val ModType.mainSourceSet get() = if (this is MultiPlatformMod) commonMain.name else main.name
 
-class NewSubMod(arg: String, root: RootProjects, type: ModType): SubProject(arg, root) {
+class NewSubMod(arg: String, root: IdeProject, type: ModType): SubProject(arg, root) {
   val kotlin = fold["src/${type.mainSourceSet}/kotlin"]
   val java = fold["src/${type.mainSourceSet}/java"]
 }
