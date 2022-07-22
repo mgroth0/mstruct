@@ -39,9 +39,9 @@ data class KotlinCode(
 ) {
   override fun toString(): String {
 	return """
-	  ${fileAnnotations.joinToString("\n") { "@file:${it::class.simpleName}" }}
+	  ${fileAnnotations.joinToString("\n") { "@file:${it.simpleName}" }}
 	  $packageStatement
-	  ${fileAnnotations.joinToString("\n") { "import ${it::class.qualifiedName}" }}
+	  ${fileAnnotations.joinToString("\n") { "import ${it.qualifiedName}" }}
 	  $imports
 	  $code
 	""".trimIndent()
