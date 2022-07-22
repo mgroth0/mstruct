@@ -76,7 +76,7 @@ fun MFile.projectNameRelativeToRoot(root: IdeProject): String {
 
 	root.subRootFolders.any { this in it }          -> {
 	  val subRoot = root.subRootFolders.first { this in it }
-	  relativeTo(subRoot).path.replace(MFile.separator, "-")
+	  relativeTo(subRoot).cpath.replace(MFile.separator, "-")
 	}
 
 	else                                            -> err("how to set name of ${this}?")

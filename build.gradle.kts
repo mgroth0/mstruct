@@ -1,8 +1,7 @@
 import matt.file.kt
-import matt.kbuild.gbuild.projectDirM
 import matt.klib.lang.cap
 
-generateKt(projectDirM + "src" + "main" + "kotlin" + "gen".kt) {
+generateKt("gen".kt) {
 
   class GenProject(p: Project): Project by p {
 	val accessorName = path.substringAfter(":k:").split(":").withIndex().joinToString("") {
