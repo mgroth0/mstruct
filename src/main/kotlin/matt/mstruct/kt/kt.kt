@@ -32,7 +32,7 @@ fun String.formatKotlinCode(
 
 
 data class KotlinCode(
-  val fileAnnotations: List<KClass<Annotation>> = listOf(),
+  val fileAnnotations: List<KClass<out Annotation>> = listOf(),
   val packageStatement: String = "",
   val imports: String = "",
   val code: String = ""
