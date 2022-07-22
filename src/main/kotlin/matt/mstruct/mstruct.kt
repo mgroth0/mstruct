@@ -222,6 +222,7 @@ fun tomlVersion(name: String) = versionsTable.getString(name)!!
 val ROOT_FILES_EXTRACT_SCRIPT_REL = REL_ROOT_FILES + "extract.sh"
 
 const val KBUILD_PROJ_PATH = ":k:kbuild"
+const val KBUILD_PROJ_NAME = "kbuild"
 val KBUILD_JAR = REGISTERED_FOLDER + "kbuild.jar"
 
 val JAVA_HOME by lazy {
