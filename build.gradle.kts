@@ -1,7 +1,7 @@
 import matt.file.kt
 import matt.klib.lang.cap
 
-generateKt("gen".kt) {
+generateKt(matt.mstruct.SourceSets.main,"gen".kt) {
 
   class GenProject(p: Project): Project by p {
 	val accessorName = path.substringAfter(":k:").split(":").withIndex().joinToString("") {
