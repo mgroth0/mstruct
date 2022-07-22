@@ -246,4 +246,4 @@ fun IdeProject.gradle(task: String) = shell(
 )
 
 
-val MAIN_CONFIGS = listOf("api", "implementation")
+val MAIN_CONFIGS = listOf("api", "implementation", "compileOnly")
