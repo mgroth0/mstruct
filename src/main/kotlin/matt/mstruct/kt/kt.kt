@@ -5,6 +5,7 @@ import com.pinterest.ktlint.core.KtLint.ExperimentalParams
 import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.core.RuleSet
 import com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider
+import kotlin.reflect.KClass
 
 private val STD_RULE_SET by lazy { StandardRuleSetProvider().get() }
 private val STD_RULE_SETS by lazy { listOf(STD_RULE_SET) }
@@ -31,7 +32,7 @@ fun String.formatKotlinCode(
 
 
 data class KotlinCode(
-  val fileAnnotations: List<Annotation> = listOf(),
+  val fileAnnotations: List<KClass<Annotation>> = listOf(),
   val packageStatement: String = "",
   val imports: String = "",
   val code: String = ""
