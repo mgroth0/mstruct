@@ -244,3 +244,6 @@ fun IdeProject.gradle(task: String) = shell(
   verbosity = STREAM,
   workingDir = folder
 )
+
+
+val MAIN_CONFIGS = listOf("api", "implementation")
