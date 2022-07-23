@@ -288,7 +288,7 @@ fun IdeProject.gradle(task: String) = shell(
 val MAIN_CONFIGS = listOf("api", "implementation", "compileOnly")
 
 enum class GradleTask {
-  shadowJar
+  shadowJar, run
 }
 
 fun KSubProject.pathForTask(task: GradleTask) = "${path.removeSuffix(":")}:${task.name}"
