@@ -260,9 +260,7 @@ fun tomlVersion(name: String) = versionsTable.getString(name)!!
 
 val ROOT_FILES_EXTRACT_SCRIPT_REL = REL_ROOT_FILES + "extract.sh"
 
-const val KBUILD_PROJ_PATH = ":k:kbuild"
-const val KBUILD_PROJ_NAME = "kbuild"
-val KBUILD_JAR = REGISTERED_FOLDER + "kbuild.jar"
+val KBUILD_JAR = REGISTERED_FOLDER + "${KSubProject.kbuild.name}.jar"
 
 val JAVA_HOME by lazy {
   mFile(
@@ -288,7 +286,7 @@ fun IdeProject.gradle(task: String) = shell(
 val MAIN_CONFIGS = listOf("api", "implementation", "compileOnly")
 
 enum class GradleTask {
-  shadowJar, run
+  shadowJar, run, kbuild
 }
 
 fun KSubProject.pathForTask(task: GradleTask) = "${path.removeSuffix(":")}:${task.name}"
