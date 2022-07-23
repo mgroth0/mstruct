@@ -50,6 +50,11 @@
             "type": "matt.mstruct.BuildJsonProjectDependency",
             "cfg": "api",
             "path": ":k:file"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonProjectDependency",
+            "cfg": "implementation",
+            "path": ":k:json"
         }
     ]
 }

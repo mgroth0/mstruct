@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
+import matt.file.JsonFile
 import matt.file.MFile
 import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.COMMON_LIBS_VERSIONS_FILE
@@ -16,11 +17,17 @@ import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_ROOT_FILES
 import matt.file.commons.USER_HOME
 import matt.file.mFile
+import matt.json.prim.loadJson
+import matt.json.prim.save
 import matt.kjlib.git.SimpleGit
 import matt.kjlib.shell.ShellVerbosity.Companion.STREAM
 import matt.kjlib.shell.shell
 import matt.klib.commons.GITHUB_USERNAME
 import matt.klib.lang.err
+import matt.klib.olist.BasicObservableList
+import matt.klib.olist.withChangeListener
+import matt.klib.prop.BasicBooleanProperty
+import matt.klib.prop.BasicProperty
 import matt.klib.str.lower
 import matt.mstruct.SourceSets.commonMain
 import matt.mstruct.SourceSets.main
@@ -145,25 +152,57 @@ sealed class BuildJsonDependency {
 class BuildJsonProjectDependency(
   override val cfg: String,
   val path: String
-): BuildJsonDependency()
+): BuildJsonDependency() {
+  override fun toString() = path
+}
 
 @Serializable
 class BuildJsonLibDependency(
   override val cfg: String,
   val key: String
-): BuildJsonDependency()
+): BuildJsonDependency() {
+  override fun toString() = key
+}
 
 @Serializable
 class BuildJsonLibBundleDependency(
   override val cfg: String,
   val key: String
-): BuildJsonDependency()
+): BuildJsonDependency() {
+  override fun toString() = key
+}
 
 
 @Suppress("UNCHECKED_CAST") val allModTypes by lazy {
   ModType::class.recurse(includeSelf = false) {
 	it.sealedSubclasses as Iterable<KClass<ModType>>
   }.mapNotNull { it.objectInstance }.toList()
+}
+
+
+class BuildJsonModuleMutator(
+  private val f: JsonFile
+) {
+  private var bj = f.loadJson<BuildJsonModule>()
+
+  val modTypeProp = BasicProperty(bj.realModType()).withChangeListener {
+	bj = bj.copy(modType = it::class.simpleName!!)
+	f.save(bj, pretty = true)
+  }
+  var modType by modTypeProp
+
+  val dependencies: BasicObservableList<BuildJsonDependency> = BasicObservableList(bj.dependencies).withChangeListener {
+	@Suppress("UNCHECKED_CAST")
+	bj = bj.copy(dependencies = it as List<BuildJsonDependency>)
+	f.save(bj, pretty = true)
+  }
+
+  //  var dependencies
+  //	get() = bj.dependencies
+  //	set(value) {
+  //	  bj = bj.copy(dependencies = value)
+  //	  f.save(bj, pretty = true)
+  //	}
 }
 
 @Serializable
