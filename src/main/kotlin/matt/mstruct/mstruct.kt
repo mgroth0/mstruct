@@ -26,7 +26,6 @@ import matt.klib.commons.GITHUB_USERNAME
 import matt.klib.lang.err
 import matt.klib.olist.BasicObservableList
 import matt.klib.olist.withChangeListener
-import matt.klib.prop.BasicBooleanProperty
 import matt.klib.prop.BasicProperty
 import matt.klib.str.lower
 import matt.mstruct.SourceSets.commonMain
