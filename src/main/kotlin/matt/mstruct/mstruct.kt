@@ -14,6 +14,7 @@ import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.COMMON_LIBS_VERSIONS_FILE
 import matt.file.commons.GRADLEW_NAME
 import matt.file.commons.IdeProject
+import matt.file.commons.IdeProject.all
 import matt.file.commons.LIBS_VERSIONS_ONLINE_URL
 import matt.file.commons.REGISTERED_FOLDER
 import matt.file.commons.REL_ROOT_FILES
@@ -22,6 +23,7 @@ import matt.file.mFile
 import matt.json.prim.loadJson
 import matt.json.prim.save
 import matt.kjlib.git.SimpleGit
+import matt.kjlib.shell.ShellVerbosity
 import matt.kjlib.shell.ShellVerbosity.Companion.STREAM
 import matt.kjlib.shell.shell
 import matt.klib.commons.GITHUB_USERNAME
@@ -30,6 +32,7 @@ import matt.klib.olist.BasicObservableList
 import matt.klib.olist.withChangeListener
 import matt.klib.prop.BasicProperty
 import matt.klib.str.lower
+import matt.mstruct.GradleTask.shadowJar
 import matt.mstruct.SourceSets.commonMain
 import matt.mstruct.SourceSets.main
 import matt.stream.recurse.recurse
@@ -291,4 +294,14 @@ enum class GradleTask {
 }
 
 fun KSubProject.pathForTask(task: GradleTask) = "${path.removeSuffix(":")}:${task.name}"
+val KSubProject.projectName get() = path.split(":").last()
 
+fun IdeProject.execute(sub: KSubProject, task: GradleTask) = shell(
+  (this.folder + GRADLEW_NAME).abspath,
+  sub.pathForTask(task),
+  workingDir = this.folder,
+  env = mapOf(
+	"JAVA_HOME" to matt.mstruct.JAVA_HOME.abspath
+  ),
+  verbosity = STREAM,
+)
