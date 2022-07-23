@@ -196,8 +196,7 @@ class BuildJsonModuleMutator(
   var modType by modTypeProp
 
   val dependencies: BasicObservableList<BuildJsonDependency> = BasicObservableList(bj.dependencies).withChangeListener {
-	@Suppress("UNCHECKED_CAST")
-	bj = bj.copy(dependencies = it as List<BuildJsonDependency>)
+	bj = bj.copy(dependencies = it.collection as List<BuildJsonDependency>)
 	f.save(bj, pretty = true)
   }
 
