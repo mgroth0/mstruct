@@ -296,9 +296,9 @@ enum class GradleTask {
 fun KSubProject.pathForTask(task: GradleTask) = "${path.removeSuffix(":")}:${task.name}"
 val KSubProject.projectName get() = path.split(":").last()
 
-fun IdeProject.execute(sub: KSubProject, task: GradleTask) = shell(
+fun IdeProject.execute(sub: KSubProject? = null, task: GradleTask) = shell(
   (this.folder + GRADLEW_NAME).abspath,
-  sub.pathForTask(task),
+  sub?.pathForTask(task) ?: task.name,
   workingDir = this.folder,
   env = mapOf(
 	"JAVA_HOME" to matt.mstruct.JAVA_HOME.abspath
