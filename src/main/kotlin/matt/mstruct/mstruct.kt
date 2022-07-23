@@ -1,6 +1,7 @@
 package matt.mstruct
 
 import ABSTRACT
+import KSubProject
 import ModType
 import MultiPlatformMod
 import kotlinx.serialization.Serializable
@@ -285,3 +286,9 @@ fun IdeProject.gradle(task: String) = shell(
 
 
 val MAIN_CONFIGS = listOf("api", "implementation", "compileOnly")
+
+enum class GradleTask {
+  shadowJar
+}
+
+fun KSubProject.pathForTask(task: GradleTask) = "${path.removeSuffix(":")}:${task.name}"
