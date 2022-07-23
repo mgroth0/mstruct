@@ -290,3 +290,5 @@ enum class GradleTask {
 }
 
 fun KSubProject.pathForTask(task: GradleTask) = "${path.removeSuffix(":")}:${task.name}"
+
+const val GRADLEW_NAME = "gradlew"
