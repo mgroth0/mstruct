@@ -273,7 +273,7 @@ val JAVA_HOME by lazy {
 }
 
 fun IdeProject.gradle(task: String) = shell(
-  (folder + "gradlew").abspath,
+  (folder + GRADLEW_NAME).abspath,
   task,
   env = mapOf(
 	"JAVA_HOME" to JAVA_HOME.abspath
@@ -291,4 +291,3 @@ enum class GradleTask {
 
 fun KSubProject.pathForTask(task: GradleTask) = "${path.removeSuffix(":")}:${task.name}"
 
-const val GRADLEW_NAME = "gradlew"
