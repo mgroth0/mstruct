@@ -23,7 +23,11 @@ fun String.formatKotlinCode(
 	},
 	ruleSets = listOf(
 	  RuleSet(
-		"my-rule-set",
+		STD_RULE_SET.id, /*i wanted to give it my own unique ID, but this produced the following warning:
+
+		[WARN] Skipping rule with id 'my-rule-set:trailing-comma' as it requires that the rule with id 'standard:indent' is loaded. However, no rule with this id is loaded.
+
+		*/
 		*STD_RULE_SET.rules.filter { it.id !in removeRules }.toTypedArray()
 	  )
 	)
