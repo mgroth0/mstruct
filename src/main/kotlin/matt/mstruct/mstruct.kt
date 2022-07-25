@@ -274,7 +274,23 @@ fun IdeProject.gradle(task: String) = shell(
 )
 
 
-val MAIN_CONFIGS = listOf("api", "implementation", "compileOnly")
+val JVM_ONLY_CONFIGS = arrayOf("api", "implementation", "compileOnly")
+val KOTLIN_MULTIPLATFORM_CONFIGS = arrayOf(
+
+  "commonMainImplementation",
+  "commonMainApi",
+
+  "jvmMainImplementation",
+  "jvmMainApi",
+
+  "jsMainImplementation",
+  "jsMainApi",
+
+  "nativeMainImplementation",
+  "nativeMainApi",
+)
+
+val ALL_CONFIGS = arrayOf(*JVM_ONLY_CONFIGS, *KOTLIN_MULTIPLATFORM_CONFIGS)
 
 enum class GradleTask {
   shadowJar, run, kbuild
