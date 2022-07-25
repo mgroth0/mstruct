@@ -10,9 +10,11 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import matt.file.JsonFile
 import matt.file.MFile
+import matt.file.commons.BUILD_GRADLE_KTS_NAME
 import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.COMMON_LIBS_VERSIONS_FILE
 import matt.file.commons.GRADLEW_NAME
+import matt.file.commons.GRADLE_PROPERTIES_FILE_NAME
 import matt.file.commons.IdeProject
 import matt.file.commons.LIBS_VERSIONS_ONLINE_URL
 import matt.file.commons.REGISTERED_FOLDER
@@ -123,8 +125,8 @@ open class SubProject(arg: String, val root: IdeProject) {
   }
 
 
-  val buildGradleKts = fold["build.gradle.kts"]
-  val buildJson = fold[BUILD_JSON_NAME]
+  val buildGradleKts = fold + BUILD_GRADLE_KTS_NAME
+  val buildJson = fold + BUILD_JSON_NAME
 
   val git by lazy {
 	SimpleGit(projectDir = fold, verbosity = STREAM)
@@ -266,7 +268,7 @@ val JAVA_HOME by lazy {
   mFile(
 	Properties().apply {
 	  load(
-		(USER_HOME + ".gradle" + "gradle.properties").reader()
+		(USER_HOME + ".gradle" + GRADLE_PROPERTIES_FILE_NAME).reader()
 	  )
 	}["org.gradle.java.home"].toString()
   )
