@@ -27,11 +27,15 @@ import matt.kjlib.git.SimpleGit
 import matt.kjlib.shell.ShellVerbosity.Companion.STREAM
 import matt.kjlib.shell.shell
 import matt.klib.commons.GITHUB_USERNAME
+import matt.klib.lang.NOT_IMPLEMENTED
 import matt.klib.lang.err
 import matt.klib.olist.BasicObservableList
 import matt.klib.olist.withChangeListener
 import matt.klib.prop.BasicProperty
 import matt.klib.str.lower
+import matt.klib.sys.Linux
+import matt.klib.sys.Machine
+import matt.klib.sys.NEW_MAC
 import matt.mstruct.SourceSets.commonMain
 import matt.mstruct.SourceSets.main
 import matt.stream.recurse.recurse
@@ -146,31 +150,24 @@ class NewSubMod(arg: String, root: IdeProject, type: ModType): SubProject(arg, r
   val java = fold["src/${type.mainSourceSet}/java"]
 }
 
-@Serializable
-sealed class BuildJsonDependency {
+@Serializable sealed class BuildJsonDependency {
   abstract val cfg: String
 }
 
-@Serializable
-class BuildJsonProjectDependency(
-  override val cfg: String,
-  val path: String
+@Serializable class BuildJsonProjectDependency(
+  override val cfg: String, val path: String
 ): BuildJsonDependency() {
   override fun toString() = path
 }
 
-@Serializable
-class BuildJsonLibDependency(
-  override val cfg: String,
-  val key: String
+@Serializable class BuildJsonLibDependency(
+  override val cfg: String, val key: String
 ): BuildJsonDependency() {
   override fun toString() = key
 }
 
-@Serializable
-class BuildJsonLibBundleDependency(
-  override val cfg: String,
-  val key: String
+@Serializable class BuildJsonLibBundleDependency(
+  override val cfg: String, val key: String
 ): BuildJsonDependency() {
   override fun toString() = key
 }
@@ -207,10 +204,8 @@ class BuildJsonModuleMutator(
   //	}
 }
 
-@Serializable
-data class BuildJsonModule(
-  private val modType: String = ABSTRACT::class.simpleName!!,
-  val dependencies: List<BuildJsonDependency> = listOf()
+@Serializable data class BuildJsonModule(
+  private val modType: String = ABSTRACT::class.simpleName!!, val dependencies: List<BuildJsonDependency> = listOf()
 ) {
   fun realModType() = allModTypes.first {
 	it::class.simpleName == modType
@@ -222,11 +217,9 @@ data class BuildJsonModule(
 
 
 private val toml by lazy {
-  COMMON_LIBS_VERSIONS_FILE
-	.takeIf { it.exists() }
-	?.let { Toml.parse(it.toPath()) }
-	?: Toml.parse(LIBS_VERSIONS_ONLINE_URL.openStream())
-  //  Toml.parse(
+  COMMON_LIBS_VERSIONS_FILE.takeIf { it.exists() }?.let { Toml.parse(it.toPath()) } ?: Toml.parse(
+	LIBS_VERSIONS_ONLINE_URL.openStream()
+  ) //  Toml.parse(
   //
   //	COMMON_LIBS_VERSIONS_FILE ?: ONLINE_LIBS_VERSIONS_TEXT.byteInputStream()
   //	/*
@@ -275,13 +268,9 @@ val JAVA_HOME by lazy {
 }
 
 fun IdeProject.gradle(task: String) = shell(
-  (folder + GRADLEW_NAME).abspath,
-  task,
-  env = mapOf(
+  (folder + GRADLEW_NAME).abspath, task, env = mapOf(
 	"JAVA_HOME" to JAVA_HOME.abspath
-  ),
-  verbosity = STREAM,
-  workingDir = folder
+  ), verbosity = STREAM, workingDir = folder
 )
 
 
@@ -303,3 +292,20 @@ fun IdeProject.execute(sub: KSubProject? = null, task: GradleTask) = shell(
   ),
   verbosity = STREAM,
 )
+
+val LINUX_GRADLE_EXECUTABLE_FILE by lazy { mFile("/opt/gradle/gradle-${tomlVersion("gradle")}/bin/gradle") }
+
+val Machine.systemGradleExecutable: MFile
+  get() {
+
+	val gradleVersion = tomlVersion("gradle")
+
+	return when (this) {
+	  is NEW_MAC -> mFile(
+		"/Users/matthewgroth/.gradle/wrapper/dists/gradle-$gradleVersion-all/6qsw290k5lz422uaf8jf6m7co/gradle-$gradleVersion/bin/gradle"
+	  )
+
+	  is Linux   -> LINUX_GRADLE_EXECUTABLE_FILE
+	  else       -> NOT_IMPLEMENTED
+	}
+  }
