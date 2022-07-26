@@ -1,6 +1,7 @@
 import matt.file.UnnamedPackageIsOk
 import matt.file.kt
 import matt.klib.lang.cap
+import matt.kbuild.gbuild.modtype
 
 generateKt(
   matt.mstruct.SourceSets.main,
