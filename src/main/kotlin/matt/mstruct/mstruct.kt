@@ -330,6 +330,6 @@ val Machine.systemGradleExecutable: MFile
 
 
 val KSubProject.registeredBinDistFolder
-  get() = BIN_FOLDER + "dist" + path.split(":").drop(1).joinToString(MFile.separator)
+  get() = BIN_FOLDER + "dist" + path.split(":").drop(2).joinToString(MFile.separator)
 
 val KSubProject.registeredBinDistLibFolder get() = registeredBinDistFolder + "lib"
