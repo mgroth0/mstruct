@@ -10,6 +10,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import matt.file.JsonFile
 import matt.file.MFile
+import matt.file.commons.BIN_FOLDER
 import matt.file.commons.BUILD_GRADLE_KTS_NAME
 import matt.file.commons.BUILD_JSON_NAME
 import matt.file.commons.COMMON_LIBS_VERSIONS_FILE
@@ -27,6 +28,7 @@ import matt.kjlib.git.SimpleGit
 import matt.kjlib.shell.ShellVerbosity.Companion.STREAM
 import matt.kjlib.shell.shell
 import matt.klib.commons.GITHUB_USERNAME
+import matt.klib.commons.thisMachine
 import matt.klib.lang.NOT_IMPLEMENTED
 import matt.klib.lang.err
 import matt.klib.olist.BasicObservableList
@@ -326,3 +328,8 @@ val Machine.systemGradleExecutable: MFile
 	}
   }
 
+
+val KSubProject.registeredBinDistFolder
+  get() = BIN_FOLDER + "dist" + path.split(":").drop(1).joinToString(MFile.separator)
+
+val KSubProject.registeredBinDistLibFolder get() = registeredBinDistFolder + "lib"
